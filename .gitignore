@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/dist/
+data/vivad.db*
+data/uploads/*
+!data/uploads/.gitkeep
+data/demo/
+reports/*.pdf

@@ -1,0 +1,88 @@
+{
+  "jurisdiction": "India",
+  "disclaimer": "Provided as reference material for authorised human review only. VIVAD does not interpret the law, does not determine liability, and does not give legal advice. Always verify against the official source before relying on a provision.",
+  "last_reviewed": "2026-10-01",
+  "provisions": [
+    {
+      "id": "IN-CONTRACT-1872-S73",
+      "act": "Indian Contract Act, 1872",
+      "section": "73",
+      "title": "Compensation for loss or damage caused by breach of contract",
+      "description": "When a contract is broken, the party who suffers from the breach is entitled to compensation for loss or damage caused naturally in the usual course of things, or which the parties knew would likely result. Compensation is not given for remote or indirect loss.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/2187",
+      "concepts": ["contract", "breach", "compensation", "loss", "damage", "agreement", "deposit", "deduction", "refund"]
+    },
+    {
+      "id": "IN-CONTRACT-1872-S74",
+      "act": "Indian Contract Act, 1872",
+      "section": "74",
+      "title": "Compensation for breach where a penalty is stipulated",
+      "description": "Where a contract names a sum payable on breach, or provides a penalty, the court may award reasonable compensation not exceeding that amount. A stipulation that is a penalty is not enforced as such; only reasonable compensation is awarded.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/2187",
+      "concepts": ["contract", "penalty", "forfeiture", "deposit", "deduction", "liquidated damages", "agreement"]
+    },
+    {
+      "id": "IN-TPA-1882-S108",
+      "act": "Transfer of Property Act, 1882",
+      "section": "108",
+      "title": "Rights and liabilities of lessor and lessee",
+      "description": "Sets out the rights and liabilities of the lessor (landlord) and lessee (tenant), including the lessee's obligations as to the condition of the property, the lessor's duty to disclose material defects, and the position on return of possession at the end of the lease.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/2338",
+      "concepts": ["lease", "rent", "tenant", "landlord", "lessor", "lessee", "possession", "property", "repair", "damage", "deposit", "rental", "agreement"]
+    },
+    {
+      "id": "IN-CPA-2019-S2-11",
+      "act": "Consumer Protection Act, 2019",
+      "section": "2(11)",
+      "title": "Definition of 'deficiency'",
+      "description": "Defines a deficiency as any shortcoming, inadequacy or imperfection in the quality, nature or manner of performance of a service that is required to be maintained by law or undertaken to be performed under a contract.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/15256",
+      "concepts": ["service", "consumer", "deficiency", "complaint", "contract", "provider", "institution", "refund"]
+    },
+    {
+      "id": "IN-CPA-2019-S35",
+      "act": "Consumer Protection Act, 2019",
+      "section": "35",
+      "title": "Manner in which a complaint may be made",
+      "description": "Describes how a consumer may file a complaint before the District Commission, including by a recognised consumer association or legal heir, and the accompanying documents and fee.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/15256",
+      "concepts": ["consumer", "complaint", "service", "deficiency", "refund", "compensation", "district commission"]
+    },
+    {
+      "id": "IN-CPC-1908-S89",
+      "act": "Code of Civil Procedure, 1908",
+      "section": "89",
+      "title": "Settlement of disputes outside the Court",
+      "description": "Where it appears to the court that an element of settlement exists, the court may refer the dispute to arbitration, conciliation, judicial settlement including through Lok Adalat, or mediation.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/2191",
+      "concepts": ["mediation", "conciliation", "settlement", "dispute", "arbitration", "lok adalat", "agreement", "compromise"]
+    },
+    {
+      "id": "IN-ARB-1996-S30",
+      "act": "Arbitration and Conciliation Act, 1996",
+      "section": "30",
+      "title": "Settlement in arbitration",
+      "description": "Allows the arbitral tribunal to encourage settlement and, with the parties' agreement, to settle the dispute on agreed terms, recorded as an award on agreed terms.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/1978",
+      "concepts": ["settlement", "agreement", "dispute", "arbitration", "compromise", "mediation"]
+    },
+    {
+      "id": "IN-SRA-1963-S10",
+      "act": "Specific Relief Act, 1963",
+      "section": "10",
+      "title": "Cases in which specific performance of contract is enforceable",
+      "description": "States that specific performance of a contract is enforced by the court when there is no adequate remedy (for example, damages) available for its breach.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/2189",
+      "concepts": ["contract", "specific performance", "agreement", "obligation", "property", "possession", "breach"]
+    },
+    {
+      "id": "IN-LSA-1987-S19",
+      "act": "Legal Services Authorities Act, 1987",
+      "section": "19",
+      "title": "Organisation of Lok Adalats",
+      "description": "Provides for the organisation of Lok Adalats by Legal Services Authorities to settle disputes amicably through conciliation and mediation.",
+      "source_url": "https://www.indiacode.nic.in/handle/123456789/1922",
+      "concepts": ["mediation", "conciliation", "settlement", "lok adalat", "dispute", "compromise"]
+    }
+  ]
+}
