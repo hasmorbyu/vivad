@@ -70,7 +70,6 @@ export default function Contradictions() {
           </div>
         )}
       </Section>
-      <div className="lbl">A POTENTIAL CONTRADICTION IS AN INCONSISTENCY FOR A HUMAN TO RESOLVE. IT DOES NOT ESTABLISH THAT ANY PARTY IS UNTRUTHFUL.</div>
     </div>
   )
 }

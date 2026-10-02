@@ -7,6 +7,15 @@ import { Empty, ErrorBanner, Section, StatusChip } from '../components/ui'
 import { caseStatusVariant } from '../lib/semantics'
 import type { J } from '../types'
 
+function matchesView(status: string, view: string): boolean {
+  if (view === 'ALL') return true
+  const resolved = ['RESOLVED', 'CLOSED', 'ESCALATED']
+  const pending = ['AWAITING_RESPONSE', 'AWAITING_REVIEW', 'AWAITING_COMMITTEE_REVIEW', 'AWAITING_DECISION', 'EVIDENCE_REQUESTED', 'HEARING_SCHEDULED']
+  if (view === 'RESOLVED') return resolved.includes(status)
+  if (view === 'PENDING') return pending.includes(status)
+  return !resolved.includes(status) && !pending.includes(status)
+}
+
 const METRICS: [string, string][] = [
   ['active_cases', 'Active cases'],
   ['awaiting_review', 'Awaiting review'],
@@ -22,6 +31,7 @@ export default function Dashboard() {
   const nav = useNavigate()
   const [data, setData] = useState<J>(null)
   const [busy, setBusy] = useState(true)
+  const [view, setView] = useState<'ALL' | 'ACTIVE' | 'PENDING' | 'RESOLVED'>('ALL')
 
   const load = useCallback(() => {
     setBusy(true)
@@ -50,10 +60,17 @@ export default function Dashboard() {
         </div>
       </Section>
 
-      <Section title="Case queue" right={busy ? <span className="lbl blink">LOADING…</span> : undefined}>
+      <Section title="Case queue" right={busy ? <span className="lbl blink">LOADING…</span> : (
+        <div className="flex gap-1">
+          {(['ALL', 'ACTIVE', 'PENDING', 'RESOLVED'] as const).map((v) => (
+            <button key={v} className={'btn ' + (view === v ? 'on' : '')} onClick={() => setView(v)}>[ {v} ]</button>
+          ))}
+        </div>
+      )}>
         {!data && <Empty>No data.</Empty>}
         {data && data.cases.length === 0 && <Empty>No cases yet. Create a dispute to begin intake.</Empty>}
-        {data && data.cases.length > 0 && (
+        {data && data.cases.filter((c: J) => matchesView(c.status, view)).length === 0 && <Empty>No {view.toLowerCase()} cases.</Empty>}
+        {data && data.cases.filter((c: J) => matchesView(c.status, view)).length > 0 && (
           <div className="overflow-auto">
             <table className="tbl">
               <thead>
@@ -64,7 +81,7 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {data.cases.map((c: J) => (
+                {data.cases.filter((c: J) => matchesView(c.status, view)).map((c: J) => (
                   <tr key={c.id} className="row" onClick={() => nav(`/cases/${c.id}`)}>
                     <td className="whitespace-nowrap" style={{ fontWeight: 700 }}>{c.id}{c.synthetic ? <span className="lbl ml-2">SYNTHETIC</span> : null}</td>
                     <td>{fmt.label(c.category)}</td>
@@ -83,7 +100,6 @@ export default function Dashboard() {
         )}
       </Section>
 
-      <div className="lbl">STATUS AND COUNTS ARE COMPUTED BY THE BACKEND. VIVAD IS A PRELIMINARY DECISION-SUPPORT TOOL, NOT A COURT.</div>
     </div>
   )
 }

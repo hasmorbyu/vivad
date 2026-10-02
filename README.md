@@ -33,9 +33,19 @@ semantic colours** that answer "where should I look?".
 
 Everything else stays black/white/gray. The interface follows **Scan → Identify → Expand →
 Investigate → Decide**: metrics and signals first, findings second, raw source material
-last and only on demand. Navigation is grouped into five areas (Overview, Case, Evidence,
-Analysis, Process) with sub-sections shown only for the active area, instead of fifteen
-equal tabs.
+last and only on demand.
+
+**Five destinations only** — Cases, New Case, Investigation, Graph, Review & Resolution —
+live in a collapsible sidebar. Each destination contains sections rather than more tabs:
+
+- **Cases** — dashboard of active / pending / resolved cases.
+- **New Case** — structured intake.
+- **Investigation** — summary heading, At a glance, Case file (parties, statements,
+  evidence, claims), Events timeline, Pre-hearing (gaps, points to clarify, unresolved
+  questions, contradictions, relevant laws).
+- **Graph** — interactive case graph.
+- **Review & Resolution** — Hearings, Decision management (findings, reasoning, outcome),
+  Case closure (audit trail and report).
 
 **Case journey map.** The Timeline tab renders an interactive progression map generated
 from the real case records (one data model, horizontal on desktop and vertical on mobile):
@@ -123,14 +133,25 @@ Open http://localhost:5174 and sign in. Demo accounts (password `vivad123`):
 
 ## Demo case
 
+Two ways to get the demonstration case **VV-2026-00042** (a fully synthetic rental
+security-deposit dispute — ₹40,000 paid, ₹15,000 deduction claimed; all names, accounts and
+amounts are fictional).
+
+**A. Upload the files (reproduces the same results).** The folder `vivad/demo_case/`
+contains the six synthetic evidence files. Create a case, add the two parties and two
+statements, upload every file, and run analysis — you get the same claims, contradictions,
+legal references and graph as the seeded case. Exact steps and statement text are in
+`vivad/demo_case/README.txt`.
+
+**B. Seed it directly.**
+
 ```bash
 vivad/.venv/bin/python vivad/scripts/generate_demo.py
 ```
 
-Seeds **VV-2026-00042**, a fully synthetic rental security-deposit dispute (₹40,000 paid;
-₹15,000 deduction claimed): parties, statements, six evidence files, analysis, two potential
-contradictions, legal references, human review, a completed hearing with notes, and a human
-preliminary resolution. All names, accounts and amounts are fictional.
+This builds the whole case end to end: parties, statements, six evidence files, analysis,
+two potential contradictions, legal references, human review, a completed hearing with
+notes, and a human preliminary resolution.
 
 ## Testing
 

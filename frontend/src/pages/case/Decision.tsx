@@ -70,7 +70,6 @@ export default function Decision() {
           </Section>
           <Section title="Record the human decision">
             {!canDecide && <div className="border border-line p-2 mb-3" style={{ borderStyle: 'dashed' }}>Only a chair or administrator may record the final decision.</div>}
-            <p className="text-mut mb-3">This is a preliminary, non-binding resolution recorded by a human. AI never makes this decision.</p>
             <form onSubmit={submit}>
               <Field k="Outcome">
                 <select className="w-full" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} aria-label="decision status" disabled={!canDecide}>

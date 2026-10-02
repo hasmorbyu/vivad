@@ -20,15 +20,15 @@ export default function Login() {
   const [password, setPassword] = useState('vivad123')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
-  const [target, setTarget] = useState('/dashboard')
+  const [target, setTarget] = useState('/cases')
 
   // redirect once signed in, but not mid-action (the demo flow resolves its target first)
   if (user && !busy) return <Navigate to={target} replace />
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
-    setBusy(true); setErr(''); setTarget('/dashboard')
-    try { await login(username.trim(), password); nav('/dashboard') }
+    setBusy(true); setErr(''); setTarget('/cases')
+    try { await login(username.trim(), password); nav('/cases') }
     catch (x) { setErr((x as Error).message) }
     finally { setBusy(false) }
   }
@@ -36,7 +36,7 @@ export default function Login() {
   async function viewDemo() {
     setBusy(true); setErr('')
     try {
-      setTarget('/dashboard')
+      setTarget('/cases')
       await login('officer', 'vivad123')
       const cases: { id: string }[] = await api.get('/cases')
       if (cases.some((c) => c.id === 'VV-2026-00042')) setTarget('/cases/VV-2026-00042')
@@ -55,12 +55,6 @@ export default function Login() {
             <div style={{ fontWeight: 700 }}>AI assists analysis.</div>
             <div>Humans make the final decision.</div>
           </div>
-          <hr className="rule" />
-          <ul className="list-none pl-0 text-[12px] leading-6 text-mut">
-            <li>· VIVAD does not replace human judgment.</li>
-            <li>· It makes facts, evidence, contradictions and relevant references easier to examine.</li>
-            <li>· No AI output becomes a decision without a human action.</li>
-          </ul>
         </div>
         <form className="border border-line p-6" onSubmit={submit}>
           <h1 className="text-[16px] tracking-[.16em] uppercase mb-4">Sign in</h1>

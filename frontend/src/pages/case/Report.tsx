@@ -52,7 +52,6 @@ export default function Report() {
           <div className="border border-line p-3"><div className="lbl">Decision</div><div>{decided ? fmt.label(decided.status) : 'NOT RECORDED'}</div></div>
         </div>
         {!decided && <Empty>No human decision has been recorded. The report can be generated, but the case is not resolved.</Empty>}
-        <p className="text-mut">{rep.disclaimer}</p>
       </Section>
 
       <Section title="Report contents">
@@ -78,7 +77,6 @@ export default function Report() {
           ))}</tbody>
         </table>
       </Section>
-      <div className="lbl">AI-GENERATED SECTIONS AND HUMAN-VALIDATED SECTIONS ARE LABELLED SEPARATELY. A REPORT IS NOT A LEGALLY BINDING DECISION.</div>
     </div>
   )
 }

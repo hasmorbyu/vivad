@@ -141,7 +141,6 @@ export default function Graph() {
           )}
         </aside>
       </div>
-      <div className="lbl mt-2">A GRAPH EDGE IS A RELATIONSHIP BACKED BY THE CASE MODEL, NOT PROOF. DOUBLE-BORDERED NODES ARE POTENTIAL CONTRADICTIONS.</div>
     </div>
   )
 }

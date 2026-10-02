@@ -54,7 +54,6 @@ export default function Review() {
     <div className="max-w-[1000px]">
       <ErrorBanner message={err} onClose={() => setErr('')} />
       <Section title={`Human review · ${findings.length} findings · ${pending.length} pending`}>
-        <p className="text-mut mb-3">Every AI finding must be reviewed by a human. Accept, reject, edit or mark unresolved; the action is recorded with your name and the time. AI never makes a decision.</p>
         {!canReview && <div className="border border-line p-2 mb-3" style={{ borderStyle: 'dashed' }}>Your role can view findings but not action them.</div>}
         {findings.length === 0 && <Empty>No findings. Run analysis first.</Empty>}
         <div className="grid gap-3">

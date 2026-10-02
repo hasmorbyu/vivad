@@ -37,7 +37,6 @@ export default function Legal() {
     <div className="max-w-[1100px]">
       <ErrorBanner message={err} onClose={() => setErr('')} />
       <Section title={`Legal references · ${filtered.length}`}>
-        <div className="tiny quiet mb-2">Reference material for authorised human review only. VIVAD does not interpret the law or give legal advice. Verify against the official source.</div>
         <input className="w-full mb-3 max-w-[420px]" placeholder="SEARCH ACT, SECTION OR CONCEPT" value={q} onChange={(e) => setQ(e.target.value)} aria-label="search legal references" />
         {rows === null ? <Loading /> : filtered.length === 0 ? <Empty>No references associated yet.</Empty> : (
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -77,15 +76,12 @@ export default function Legal() {
                   </div>
                   <Disclosure summary="Full explanation">{selected.relevance}</Disclosure>
 
-                  <ConnectionList ref_={selected} claims={connections(selected)} />
+                  <ConnectionList claims={connections(selected)} />
 
                   <div className="flex gap-2 mt-2">
                     <a className="btn no-underline" href={selected.source_url} target="_blank" rel="noreferrer">[ VIEW SOURCE ]</a>
                   </div>
                   <div className="lbl mt-2">{selected.jurisdiction} · last verified {selected.last_verified ? fmt.date(selected.last_verified) : '—'}</div>
-                  <Disclosure summary="Disclaimer">
-                    {selected.disclaimer}
-                  </Disclosure>
                 </div>
               )}
             </aside>
@@ -96,7 +92,7 @@ export default function Legal() {
   )
 }
 
-function ConnectionList({ ref_, claims }: { ref_: J; claims: { claim: J; hits: string[] }[] }) {
+function ConnectionList({ claims }: { claims: { claim: J; hits: string[] }[] }) {
   if (claims.length === 0) return null
   return (
     <>
@@ -111,7 +107,6 @@ function ConnectionList({ ref_, claims }: { ref_: J; claims: { claim: J; hits: s
           )}
         </div>
       ))}
-      <div className="tiny quiet">§{ref_.section} ← claims ← evidence, shown for orientation only.</div>
     </>
   )
 }

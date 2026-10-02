@@ -13,15 +13,23 @@ VIVAD_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _load_dotenv() -> None:
-    env = ROOT / ".env"
-    if not env.exists():
-        return
-    for line in env.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
+    """Load configuration from the repository-root .env, then vivad/.env, then vivad/.env.local.
+
+    Later files override earlier ones so a local file can refine the shared config, but a
+    value already present in the real process environment always wins.
+    """
+    real_env = set(os.environ)
+    for env in (ROOT / ".env", VIVAD_ROOT / ".env", VIVAD_ROOT / ".env.local"):
+        if not env.exists():
             continue
-        k, v = line.split("=", 1)
-        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+        for line in env.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            k, v = line.split("=", 1)
+            k, v = k.strip(), v.strip().strip('"').strip("'")
+            if k not in real_env:
+                os.environ[k] = v
 
 
 _load_dotenv()

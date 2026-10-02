@@ -55,7 +55,6 @@ export default function Audit() {
           </div>
         )}
       </Section>
-      <div className="lbl">EACH EVENT LINKS TO THE ONE BEFORE IT BY HASH. REMOVING OR CHANGING A ROW BREAKS THE CHAIN AND IS DETECTED.</div>
     </div>
   )
 }

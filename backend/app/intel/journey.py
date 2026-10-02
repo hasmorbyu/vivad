@@ -11,6 +11,7 @@ condition flag (BLOCKED, CRITICAL). Nothing here is decorative: stages come from
 from datetime import datetime, timezone
 
 from ..domain import CATEGORY_LABELS, DECISION_LABELS
+from ..parsers.common import IST
 from ..services import case_row, parse_json
 
 # case stage -> stage kind
@@ -48,11 +49,13 @@ def _dt(value):
         return None
     s = str(value)
     try:
-        if len(s) == 10:
-            return datetime.fromisoformat(s).replace(tzinfo=timezone.utc).astimezone()
-        return datetime.fromisoformat(s)
+        dt = datetime.fromisoformat(s)
     except ValueError:
         return None
+    # naive times are assumed IST so comparisons against "now" never mix offsets
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=IST)
+    return dt
 
 
 def _row_dicts(conn, sql, args):

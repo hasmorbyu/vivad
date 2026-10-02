@@ -39,7 +39,6 @@ export default function Claims() {
           </div>
         )}
       </Section>
-      <div className="lbl">CLAIM STATUS DESCRIBES DOCUMENTARY SUPPORT ONLY. IT IS NOT A LEGAL CONCLUSION AND MAY REQUIRE HUMAN VERIFICATION.</div>
     </div>
   )
 }

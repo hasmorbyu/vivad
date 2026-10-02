@@ -8,4 +8,6 @@ data/vivad.db*
 data/uploads/*
 !data/uploads/.gitkeep
 data/demo/
+data/logs/
 reports/*.pdf
+.env.local
