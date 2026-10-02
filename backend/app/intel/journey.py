@@ -150,6 +150,10 @@ def build_journey(conn, case_id: str) -> dict:
     # 5. analysis
     if case["analysis_state"] == "DONE" or findings:
         date = case.get("analysis_at") or max((e["uploaded_at"] or case["created_at"] for e in evidence), default=case["created_at"])
+        if contradictions:
+            c_min = min((c["created_at"] for c in contradictions if c.get("created_at")), default=None)
+            if c_min and date and c_min < date:
+                date = c_min
         add("ANALYSIS", "Analysis Prepared", f"{len(findings)} finding(s); {len(legal_rows)} legal reference(s)",
             date, description="Claims extracted, evidence linked, timeline and findings generated.",
             legal=legal_rows, source="analysis", record_ref=case.get("summary_source") or "")

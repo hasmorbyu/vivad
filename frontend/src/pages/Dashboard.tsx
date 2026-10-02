@@ -36,7 +36,7 @@ export default function Dashboard() {
       <ErrorBanner message={error || ''} onClose={() => setError(null)} />
       <div className="flex items-end justify-between border-b border-line pb-1 mb-3">
         <h2 className="text-[13px] tracking-[.16em] uppercase">Dashboard</h2>
-        {canCreate && <Link className="btn no-underline" to="/cases/new">[ CREATE DISPUTE ]</Link>}
+        {canCreate && <Link className="btn no-underline" to="/uploads">[ REGISTER INTAKE &amp; UPLOADS ]</Link>}
       </div>
 
       <Section title="Overview">

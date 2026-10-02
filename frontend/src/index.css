@@ -156,3 +156,176 @@ details.disclosure[open] > summary::before { content: '▾ '; }
 .jmap svg { pointer-events: none; }
 .jmap::-webkit-scrollbar { height: 12px; }
 @media (prefers-reduced-motion: reduce) { .jpulse { animation: none; opacity: .4; } .blink { animation: none; } }
+
+/* ---------- Authentic Manila Case Folder Theme ---------- */
+.real-wood-bg {
+  background-color: #120e0a;
+  background-image: 
+    radial-gradient(ellipse at 50% 25%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.75) 100%),
+    url('/wood_bg.jpg');
+  background-size: 100% 100%, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.manila-cardboard {
+  background: #deb877;
+  background-image: 
+    linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.06) 100%),
+    radial-gradient(circle at 80% 80%, rgba(185, 145, 80, 0.3) 0%, transparent 60%);
+  border: 1px solid #b38b4c;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.9),
+    0 10px 25px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  color: #1a1612;
+}
+
+.manila-tab-1 {
+  background: #deb877;
+  border: 1px solid #b38b4c;
+  border-bottom: none;
+  border-radius: 8px 14px 0 0 !important;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+  color: #2b2216;
+}
+
+.manila-tab-2 {
+  background: #d6af6d;
+  border: 1px solid #aa8345;
+  border-bottom: none;
+  border-radius: 8px 14px 0 0 !important;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+  color: #3b3020;
+}
+
+.aged-paper-leaf {
+  background: #f7f1e1;
+  background-image: linear-gradient(180deg, #fdfaf2 0%, #f4ead5 100%);
+  border: 1px solid #d4c4a5;
+  border-radius: 2px !important;
+  box-shadow: 
+    0 4px 15px rgba(0,0,0,0.22),
+    0 1px 3px rgba(0,0,0,0.12),
+    inset 0 0 30px rgba(190, 160, 110, 0.14);
+  color: #1a1612;
+}
+
+.paper-stack-shadow {
+  box-shadow: 
+    -3px 4px 0 #ebe0c8,
+    -4px 5px 0 #bdae92,
+    -6px 8px 14px rgba(0,0,0,0.4);
+}
+
+.stamp-confidential-red {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 3px solid #b91c1c;
+  color: #b91c1c;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: rotate(-10deg);
+  user-select: none;
+  background: rgba(185, 28, 28, 0.04);
+  box-shadow: inset 0 0 4px rgba(185, 28, 28, 0.12);
+}
+
+.metallic-button {
+  background: linear-gradient(180deg, #52565a 0%, #2b2e32 50%, #1a1c1e 100%);
+  border: 2px solid #8e949a;
+  border-radius: 8px !important;
+  color: #ffffff;
+  text-shadow: 0 -1px 2px rgba(0,0,0,0.8);
+  box-shadow: 
+    0 6px 16px rgba(0,0,0,0.6),
+    inset 0 1px 1px rgba(255,255,255,0.4),
+    inset 0 -2px 4px rgba(0,0,0,0.6);
+  transition: all 0.15s ease;
+}
+
+.metallic-button:hover:not(:disabled) {
+  background: linear-gradient(180deg, #62676c 0%, #363a3e 50%, #24272a 100%);
+  border-color: #abb2b8;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7), inset 0 1px 2px rgba(255,255,255,0.5);
+}
+
+.metallic-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.8), inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.folder-tab-badge {
+  background: #e8dbbe;
+  border: 1px solid #baa278;
+  border-left: none;
+  border-radius: 0 6px 6px 0 !important;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.25);
+  transition: all 0.15s ease;
+}
+
+.folder-tab-badge.on {
+  background: #f7f0df;
+  border-color: #8c734b;
+  transform: translateX(4px);
+  box-shadow: 5px 4px 12px rgba(0,0,0,0.35);
+}
+
+/* ---------- Realistic Cork Board & Evidence Cards Theme ---------- */
+.cork-board-container {
+  background-color: #7a4b27;
+  background-image: 
+    radial-gradient(ellipse at 50% 50%, rgba(180, 120, 70, 0.4) 0%, rgba(45, 25, 10, 0.92) 100%),
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.08) 0 2px, transparent 2px 5px),
+    radial-gradient(circle at 15% 25%, rgba(0,0,0,0.25) 1.5px, transparent 3px),
+    radial-gradient(circle at 75% 65%, rgba(0,0,0,0.25) 1.5px, transparent 3px),
+    radial-gradient(circle at 45% 85%, rgba(0,0,0,0.2) 1px, transparent 2px);
+  background-size: 100% 100%, 10px 10px, 20px 20px, 30px 30px, 15px 15px;
+  border: 16px solid #2b180a;
+  border-radius: 4px !important;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.88),
+    0 20px 45px rgba(0, 0, 0, 0.75),
+    inset 0 0 2px rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+.cork-board-frame-label {
+  background: linear-gradient(180deg, #3d2412 0%, #211208 100%);
+  border: 1px solid #6b4324;
+  border-top: none;
+  color: #e5be75;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 0 0 6px 6px !important;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
+
+.pushpin-badge {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #ff5252 0%, #b71c1c 70%, #5f0909 100%);
+  border-radius: 50% !important;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.6);
+  border: 1px solid #7f1d1d;
+}
+
+.tape-strip {
+  background: rgba(240, 230, 200, 0.75);
+  border: 1px solid rgba(200, 185, 150, 0.4);
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
+}
+
+
+
+

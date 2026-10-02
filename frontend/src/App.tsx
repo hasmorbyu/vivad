@@ -5,7 +5,7 @@ import { MobileNav, Sidebar, StatusBar, TopBar } from './components/Shell'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Cases from './pages/Cases'
-import NewCase from './pages/NewCase'
+import Uploads from './pages/Uploads'
 import CaseLayout from './components/CaseLayout'
 import CaseOverview from './pages/case/Overview'
 import Parties from './pages/case/Parties'
@@ -55,7 +55,8 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/cases" element={<Cases />} />
-        <Route path="/cases/new" element={<NewCase />} />
+        <Route path="/uploads" element={<Uploads />} />
+        <Route path="/cases/new" element={<Navigate to="/uploads" replace />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/search" element={<Search />} />
         <Route path="/hearings/:id" element={<HearingRoom />} />
