@@ -98,8 +98,9 @@ def request_evidence(case_id: str, body: EvidenceRequestIn, user: dict = Depends
         cur = c.execute(
             "INSERT INTO evidence_requests(case_id, about, note, party_id, requested_by, status, created_at) VALUES(?,?,?,?,?,?,?)",
             (case_id, body.about.strip(), body.note, body.party_id, user["id"], "OPEN", now_iso()))
-        c.execute("UPDATE cases SET status='EVIDENCE_REQUESTED', current_stage='EVIDENCE_REQUESTS', next_action=? WHERE id=?",
-                  (f"Awaiting response: {body.about[:60]}", case_id))
+        if not c.execute("SELECT 1 FROM decisions WHERE case_id=?", (case_id,)).fetchone():
+            c.execute("UPDATE cases SET status='EVIDENCE_REQUESTED', current_stage='EVIDENCE_REQUESTS', next_action=? WHERE id=?",
+                      (f"Awaiting response: {body.about[:60]}", case_id))
         target = [body.party_id] if body.party_id else None
         if target:
             p = c.execute("SELECT user_id FROM parties WHERE id=?", (body.party_id,)).fetchone()

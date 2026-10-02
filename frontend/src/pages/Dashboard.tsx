@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { api, fmt } from '../lib/api'
 import { useApp } from '../lib/store'
 import { useAuth } from '../lib/auth'
-import { Empty, ErrorBanner, Section } from '../components/ui'
+import { Empty, ErrorBanner, Section, StatusChip } from '../components/ui'
+import { caseStatusVariant } from '../lib/semantics'
 import type { J } from '../types'
 
 const METRICS: [string, string][] = [
@@ -68,10 +69,10 @@ export default function Dashboard() {
                     <td className="whitespace-nowrap" style={{ fontWeight: 700 }}>{c.id}{c.synthetic ? <span className="lbl ml-2">SYNTHETIC</span> : null}</td>
                     <td>{fmt.label(c.category)}</td>
                     <td>{c.party_summary || <span className="text-mut">—</span>}</td>
-                    <td className="whitespace-nowrap">{fmt.label(c.status)}</td>
+                    <td className="whitespace-nowrap"><StatusChip variant={caseStatusVariant(c.status)} dot>{fmt.label(c.status)}</StatusChip></td>
                     <td>{fmt.label(c.priority)}</td>
                     <td className="text-right">{fmt.n(c.stats.evidence)}</td>
-                    <td className="text-right">{fmt.n(c.stats.contradictions)}</td>
+                    <td className="text-right" style={c.stats.contradictions_open > 0 ? { color: 'var(--crit)', fontWeight: 700 } : undefined}>{fmt.n(c.stats.contradictions)}</td>
                     <td>{c.next_action}</td>
                     <td className="whitespace-nowrap">{fmt.date(c.created_at)}</td>
                   </tr>

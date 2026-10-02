@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useApp } from '../lib/store'
 import { useAuth } from '../lib/auth'
 import { api, fmt } from '../lib/api'
+import { StatusChip } from './ui'
 
 const NAV: { group: string; items: [string, string, string][] }[] = [
   { group: 'VIVAD', items: [['/dashboard', '01', 'DASHBOARD'], ['/cases', '02', 'CASES']] },
@@ -87,10 +88,14 @@ export function StatusBar() {
   const video = health?.video?.provider ? `VIDEO ${String(health.video.provider).toUpperCase()}` : 'VIDEO LOCAL'
   const chain = health?.integrity?.audit_chain
   const integrity = !chain ? 'INTEGRITY --' : chain.ok ? 'INTEGRITY OK' : 'INTEGRITY WARNING'
+  const integrityVariant = !chain ? 'mut' : chain.ok ? 'ok' : 'crit'
   return (
-    <footer className="flex flex-wrap gap-x-3 border-t border-line px-3 py-1 text-[12px]">
+    <footer className="flex flex-wrap items-center gap-x-3 border-t border-line px-3 py-1 text-[12px]">
       <span>VIVAD</span>|<span>PRELIMINARY DISPUTE RESOLUTION</span>|<span>AI ASSISTS · HUMANS DECIDE</span>
-      <span className="ml-auto">{integrity} | {video} | {ai}</span>
+      <span className="ml-auto flex items-center gap-2">
+        <StatusChip variant={integrityVariant as 'ok' | 'mut' | 'crit'} dot>{integrity}</StatusChip>
+        <span className="quiet">{video} · {ai}</span>
+      </span>
     </footer>
   )
 }

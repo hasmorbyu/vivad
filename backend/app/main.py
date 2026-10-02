@@ -13,6 +13,7 @@ from .api import graph as graph_api
 from .api import health as health_api
 from .api import hearings as hearings_api
 from .api import intel as intel_api
+from .api import journey as journey_api
 from .api import meta as meta_api
 from .api import notifications as notifications_api
 from .api import parties as parties_api
@@ -50,6 +51,7 @@ app.include_router(statements_api.router)
 app.include_router(evidence_api.router)
 app.include_router(intel_api.router)
 app.include_router(graph_api.router)
+app.include_router(journey_api.router)
 app.include_router(reviews_api.router)
 app.include_router(hearings_api.case_router)
 app.include_router(hearings_api.hearing_router)

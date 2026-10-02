@@ -19,6 +19,30 @@ or a system that issues legally binding judgments. Every AI-generated assertion 
 grounded in evidence, schema-validated, and subject to a recorded human action. No AI output
 becomes a decision without a human.
 
+## Design language
+
+An **editorial investigative interface**: monochrome structure with **four restrained
+semantic colours** that answer "where should I look?".
+
+| Meaning | Colour |
+|---|---|
+| Verified / normal | muted green |
+| Attention / contradiction | amber |
+| Critical / unresolved | red |
+| Primary action / selected | indigo |
+
+Everything else stays black/white/gray. The interface follows **Scan → Identify → Expand →
+Investigate → Decide**: metrics and signals first, findings second, raw source material
+last and only on demand. Navigation is grouped into five areas (Overview, Case, Evidence,
+Analysis, Process) with sub-sections shown only for the active area, instead of fifteen
+equal tabs.
+
+**Case journey map.** The Timeline tab renders an interactive progression map generated
+from the real case records (one data model, horizontal on desktop and vertical on mobile):
+completed / current / upcoming nodes on a continuous curved path, condition flags
+(attention, pending), evidence branches, a TODAY marker, jump-to-current, status filtering
+and a detail side panel. It is a serious case journey, not a game board.
+
 ## Architecture
 
 ```

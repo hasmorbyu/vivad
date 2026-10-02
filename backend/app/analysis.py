@@ -136,11 +136,19 @@ def _run(case_id: str, user: dict | None) -> None:
             nf = _store_findings(c, case_id, analysis_id, result, bundle)
             summary = (result.get("analysis") or {}).get("summary", "")
             source = f"AI:{result.get('provider')}" if result.get("ai_available") else "DETERMINISTIC"
-            c.execute("UPDATE cases SET summary_text=?, summary_source=?, summary_at=?, status='AWAITING_REVIEW',"
-                      " current_stage='HUMAN_REVIEW', next_action='Human review of AI findings', updated_at=? WHERE id=?",
-                      (summary, source, now_iso(), now_iso(), case_id))
+            decided = c.execute("SELECT 1 FROM decisions WHERE case_id=?", (case_id,)).fetchone()
+            if decided:
+                # never regress a decided case: refresh the analysis but keep the resolution
+                c.execute("UPDATE cases SET summary_text=?, summary_source=?, summary_at=?, updated_at=? WHERE id=?",
+                          (summary, source, now_iso(), now_iso(), case_id))
+                new_state = "UNCHANGED (decided)"
+            else:
+                c.execute("UPDATE cases SET summary_text=?, summary_source=?, summary_at=?, status='AWAITING_REVIEW',"
+                          " current_stage='HUMAN_REVIEW', next_action='Human review of AI findings', updated_at=? WHERE id=?",
+                          (summary, source, now_iso(), now_iso(), case_id))
+                new_state = "AWAITING_REVIEW"
             audit.record(c, user, "AI_ANALYSIS_GENERATED", case_id=case_id, object_type="case", object_id=case_id,
-                         new_state="AWAITING_REVIEW", detail=f"{nf} finding(s); source={source}")
+                         new_state=new_state, detail=f"{nf} finding(s); source={source}")
             _set(case_id, i, "OK", f"{nf} finding(s) ready for human review")
             c.commit()
 

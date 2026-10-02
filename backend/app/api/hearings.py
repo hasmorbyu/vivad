@@ -92,8 +92,10 @@ def schedule_hearing(case_id: str, body: HearingIn, user: dict = Depends(get_cur
                 p.role = p.role if p.role != "PARTICIPANT" else (row["role"] if row else p.role)
             c.execute("INSERT INTO hearing_participants(hearing_id, user_id, party_id, name, role, invited) VALUES(?,?,?,?,?,1)",
                       (hid, p.user_id, p.party_id, name, p.role))
-        c.execute("UPDATE cases SET status='HEARING_SCHEDULED', current_stage='HEARING', next_action=? WHERE id=?",
-                  (f"Hearing on {body.scheduled_at}", case_id))
+        # never regress a decided case back into an active workflow state
+        if not c.execute("SELECT 1 FROM decisions WHERE case_id=?", (case_id,)).fetchone():
+            c.execute("UPDATE cases SET status='HEARING_SCHEDULED', current_stage='HEARING', next_action=? WHERE id=?",
+                      (f"Hearing on {body.scheduled_at}", case_id))
         notify_case_parties(c, case_id, "HEARING_SCHEDULED", "Hearing scheduled", f"{body.scheduled_at} · {body.agenda}")
         audit.record(c, user, "HEARING_SCHEDULED", case_id=case_id, object_type="hearing", object_id=hid,
                      new_state="SCHEDULED", detail=f"{body.scheduled_at} · {body.agenda[:120]}")

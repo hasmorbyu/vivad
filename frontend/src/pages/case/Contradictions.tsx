@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { api } from '../../lib/api'
 import { useCase } from '../../components/CaseLayout'
-import { Empty, ErrorBanner, Loading, Section } from '../../components/ui'
+import { Empty, ErrorBanner, Loading, Section, StatusChip } from '../../components/ui'
+import { contradictionVariant } from '../../lib/semantics'
 import { EvidenceRef } from '../../components/EvidenceRef'
 import type { J } from '../../types'
 
@@ -56,7 +57,7 @@ export default function Contradictions() {
                 <div className="lbl">Analysis</div>
                 <p>{c.explanation}</p>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className="lbl">STATUS · {c.verification_status.replaceAll('_', ' ')}</span>
+                  <StatusChip variant={contradictionVariant(c.verification_status)}>{c.verification_status.replaceAll('_', ' ')}</StatusChip>
                   {c.verification_status === 'REQUIRES_HUMAN_REVIEW' && STATUS.map(([s, label]) => (
                     <button key={s} className="btn" onClick={() => review(c.contradiction_ref, s)}>[ {label} ]</button>
                   ))}

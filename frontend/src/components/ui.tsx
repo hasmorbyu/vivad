@@ -1,31 +1,58 @@
 import type { ReactNode } from 'react'
 import { CLS_UI, TRUST_UI, type Cls, type TrustLabel } from '../types'
+import { ICONS, claimVariant, classificationVariant, trustVariant, type Variant } from '../lib/semantics'
 
-export function ClassTag({ cls, full }: { cls: Cls; full?: boolean }) {
-  const u = CLS_UI[cls]
+export function StatusChip({ variant = 'mut', solid, dot, children }: { variant?: Variant; solid?: boolean; dot?: boolean; children: ReactNode }) {
   return (
-    <span className={`tag ${u.className}`}>
-      {u.sym} {u.label}{full ? ` · ${u.full}` : ''}
+    <span className={`status status-${variant}${solid ? ' status-solid' : ''}`}>
+      {dot && <span className="dot" aria-hidden="true" />}
+      {children}
     </span>
   )
 }
 
+export function Icon({ name, className = '' }: { name: keyof typeof ICONS; className?: string }) {
+  return <span className={`icon ${className}`} aria-hidden="true">{ICONS[name]}</span>
+}
+
+export function Signal({ variant = 'mut', title, children, action }: { variant?: Variant; title: ReactNode; children?: ReactNode; action?: ReactNode }) {
+  return (
+    <div className={`signal signal-${variant}`}>
+      <div className="flex flex-wrap items-baseline gap-2">
+        <span style={{ fontWeight: 700 }}>{title}</span>
+        {action && <span className="ml-auto">{action}</span>}
+      </div>
+      {children && <div className="tiny quiet">{children}</div>}
+    </div>
+  )
+}
+
+export function Metric({ value, label, variant, icon, onClick }: { value: ReactNode; label: string; variant?: Variant; icon?: string; onClick?: () => void }) {
+  const Comp: any = onClick ? 'button' : 'div'
+  return (
+    <Comp className={`metric${variant ? ` metric-${variant}` : ''}`} onClick={onClick} style={{ textAlign: 'left', background: 'none', border: 0, borderLeft: '1px solid var(--soft)', cursor: onClick ? 'pointer' : 'default' }}>
+      <b>{value}</b>
+      <span className="lbl">{icon ? `${icon} ` : ''}{label}</span>
+    </Comp>
+  )
+}
+
+export function Disclosure({ summary = 'Why this is shown', children }: { summary?: string; children: ReactNode }) {
+  return <details className="disclosure"><summary>{summary}</summary><div className="tiny mt-1">{children}</div></details>
+}
+
+export function ClassTag({ cls, full }: { cls: Cls; full?: boolean }) {
+  const u = CLS_UI[cls]
+  return <StatusChip variant={classificationVariant(cls)}>{u.sym} {u.label}{full ? ` · ${u.full}` : ''}</StatusChip>
+}
+
 export function TrustTag({ label }: { label: TrustLabel }) {
-  const u = TRUST_UI[label]
-  return <span className={`trust ${u.className}`}>{u.text}</span>
+  return <StatusChip variant={trustVariant(label)}>{TRUST_UI[label].text}</StatusChip>
 }
 
-const CLAIM_STYLE: Record<string, string> = {
-  SUPPORTED: 'tag-verified',
-  PARTIALLY_SUPPORTED: 'tag-direct',
-  CONTRADICTED: 'tag-lead',
-  UNSUPPORTED: 'tag-unresolved',
-  UNRESOLVED: 'tag-unresolved',
-  REQUIRES_HUMAN_REVIEW: 'tag-lead',
-}
-
+const CLAIM_VARIANT = (status: string): Variant => claimVariant(status)
 export function ClaimTag({ status }: { status: string }) {
-  return <span className={`tag ${CLAIM_STYLE[status] || 'tag-unresolved'}`}>{status.replaceAll('_', ' ')}</span>
+  return <StatusChip variant={CLAIM_VARIANT(status)}>{status.replaceAll('_', ' ')}</StatusChip>
 }
 
 export function Section({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
@@ -54,37 +81,37 @@ export function Bar({ pct }: { pct: number }) {
 }
 
 export function StepState({ s }: { s: string }) {
-  if (s === 'OK' || s === 'DONE') return <span>[OK]</span>
-  if (s === 'PROCESSING' || s === 'RUNNING') return <span className="blink">[PROCESSING]</span>
-  if (s === 'ERROR') return <span style={{ fontWeight: 700 }}>[ERROR]</span>
-  if (s === 'SKIPPED' || s === 'UNAVAILABLE' || s === 'WARN') return <span>[{s}]</span>
-  return <span className="text-mut">[WAITING]</span>
+  if (s === 'OK' || s === 'DONE') return <StatusChip variant="ok">OK</StatusChip>
+  if (s === 'PROCESSING' || s === 'RUNNING') return <span className="blink"><StatusChip variant="accent">PROCESSING</StatusChip></span>
+  if (s === 'ERROR') return <StatusChip variant="crit">ERROR</StatusChip>
+  if (s === 'SKIPPED' || s === 'UNAVAILABLE' || s === 'WARN') return <StatusChip variant="warn">{s}</StatusChip>
+  return <StatusChip variant="mut">WAITING</StatusChip>
 }
 
 export function AiUnavailable({ reason }: { reason?: string }) {
   return (
-    <div className="border border-line p-2" style={{ borderStyle: 'dashed' }}>
+    <div className="signal signal-warn">
       <div style={{ fontWeight: 700 }}>AI UNAVAILABLE</div>
-      <div className="mt-1">Deterministic analysis continues normally.</div>
-      {reason && <div className="lbl mt-2">REASON · {reason}</div>}
+      <div className="tiny">Deterministic analysis continues normally.</div>
+      {reason && <div className="lbl mt-1">REASON · {reason}</div>}
     </div>
   )
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <div className="border border-soft p-4 text-mut">{children}</div>
+  return <div className="panel p-4 quiet">{children}</div>
 }
 
 export function ErrorBanner({ message, onClose }: { message: string; onClose?: () => void }) {
   if (!message) return null
   return (
-    <div role="alert" className="border border-line p-2 mb-3 flex justify-between gap-2" style={{ borderStyle: 'dashed' }}>
+    <div role="alert" className="signal signal-crit flex justify-between gap-2">
       <span>{message}</span>
-      {onClose && <button className="btn" onClick={onClose} aria-label="dismiss error">×</button>}
+      {onClose && <button className="btn btn-quiet" onClick={onClose} aria-label="dismiss error">×</button>}
     </div>
   )
 }
 
 export function Loading({ what = 'LOADING' }: { what?: string }) {
-  return <div className="text-mut blink">{what}…</div>
+  return <div className="quiet blink">{what}…</div>
 }

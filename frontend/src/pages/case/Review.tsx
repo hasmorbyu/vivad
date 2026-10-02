@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { api, fmt } from '../../lib/api'
 import { useCase } from '../../components/CaseLayout'
 import { useAuth } from '../../lib/auth'
-import { Empty, ErrorBanner, Loading, Section, TrustTag } from '../../components/ui'
+import { Empty, ErrorBanner, Loading, Section, StatusChip, TrustTag } from '../../components/ui'
 import { EvidenceRef } from '../../components/EvidenceRef'
 import type { J } from '../../types'
 
@@ -65,7 +65,11 @@ export default function Review() {
                 <span className="lbl">{KIND_LABEL[f.kind] || f.kind}</span>
                 <TrustTag label={f.origin === 'AI' ? 'AI' : 'EVIDENCE'} />
                 {f.human_status !== 'PENDING' ? <TrustTag label="HUMAN" /> : <TrustTag label="VERIFY" />}
-                <span className="lbl ml-auto">{f.human_status.replaceAll('_', ' ')}</span>
+                <span className="ml-auto">
+                  <StatusChip variant={['ACCEPT', 'EDIT'].includes(f.human_status) ? 'ok' : f.human_status === 'PENDING' ? 'warn' : 'crit'}>
+                    {f.human_status.replaceAll('_', ' ')}
+                  </StatusChip>
+                </span>
               </div>
               <div style={{ fontWeight: 700 }}>{f.title}</div>
               {editing !== null && editing.id === f.id ? (
