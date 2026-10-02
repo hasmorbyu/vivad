@@ -6,7 +6,7 @@ import { api, fmt } from '../lib/api'
 import { StatusChip } from './ui'
 
 const NAV: { group: string; items: [string, string, string][] }[] = [
-  { group: 'VIVAD', items: [['/dashboard', '01', 'DASHBOARD'], ['/cases', '02', 'CASES']] },
+  { group: 'VIVAD', items: [['/dashboard', '01', 'DASHBOARD'], ['/cases', '02', 'CASES'], ['/uploads', '03', 'UPLOADS']] },
 ]
 
 function NotificationBell() {
